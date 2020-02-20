@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation (name:'msa_mdid_1.0.13',ext:'aar')
+}
+
+
+ext {
+
+    PUBLISH_GROUP_ID = 'com.yumimobi.ads.thirdparty'
+    PUBLISH_ARTIFACT_ID = 'miit_mdid'
+//    // publish yumiad aar:
+//    // Call ./gradlew clean build generateRelease to publish
+    PUBLISH_VERSION = ''
+
+
+    siteUrl = 'https://github.com/yumimobi/AtmosplayAds-android'
+    gitUrl = 'https://github.com/yumimobi/AtmosplayAds-android.git'
+}
+
+if (PUBLISH_VERSION) {
+    apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+}
